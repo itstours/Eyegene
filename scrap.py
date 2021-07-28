@@ -3,21 +3,12 @@ from bs4 import BeautifulSoup
 import time, winsound
 import ctypes  # An included library with Python install.  
 from playsound import playsound
-import sys, os
 
 def LoadWeb(URL):
     page = requests.get(URL)
     soup = BeautifulSoup(page.content, "html.parser")
     print("Webpage succesfully loaded")
     return soup
-
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
-    return os.path.join(base_path, relative_path)
-
-def play_tada():
-    playsound(resource_path('tada.mp3')) # got from korea-covid-19-remaining-vaccine-macro 
 
 URL = "https://nedrug.mfds.go.kr/pbp/CCBCE01/getList"
 sleepTime = 30
@@ -42,8 +33,8 @@ while(True):
         print("New application found")
         duration = 500  # milliseconds
         freq = 880  # Hz
-        play_tada()
-        #winsound.Beep(freq, duration)
+        #play_tada()
+        winsound.Beep(freq, duration)
         ctypes.windll.user32.MessageBoxW(0, "아이진!!!!!!!!!", "아이진!", 1)
         break
     else:
