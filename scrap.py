@@ -16,15 +16,18 @@ sleepTime = 30
 while True:
     try:
         # Note: Python 2.x users should use raw_input, the equivalent of 3.x's input
-        sleepTime = int(input("몇 초마다 갱신할까요? (최소 15초 이상) "))
+        temp_input = input("몇 초마다 갱신할까요? (최소 5초 이상, 미입력시 기본 30초) ")
+        if temp_input is '':
+            break
+        sleepTime = int(temp_input)
     except ValueError:
         print("숫자만 입력해 주세요")
         #better try again... Return to the start of the loop
         continue
-    if sleepTime >= 15: 
+    if sleepTime >= 5: 
         break
     else:
-        print("15 이상으로 입력해 주세요")
+        print("5 이상으로 입력해 주세요")
 
 while(True):
     soup = LoadWeb(URL)
