@@ -7,7 +7,7 @@ import ctypes  # An included library with Python install.
 def LoadWeb(URL):
     page = requests.get(URL)
     soup = BeautifulSoup(page.content, "html.parser")
-    print("Webpage succesfully loaded")
+    #print("Webpage succesfully loaded")
     return soup
 
 URL = "https://nedrug.mfds.go.kr/pbp/CCBCE01/getList"
