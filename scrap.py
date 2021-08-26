@@ -2,7 +2,7 @@ import requests, re
 from bs4 import BeautifulSoup
 import time, winsound
 import ctypes  # An included library with Python install.  
-from playsound import playsound
+#from playsound import playsound
 
 def LoadWeb(URL):
     page = requests.get(URL)
@@ -15,9 +15,9 @@ sleepTime = 30
 
 while True:
     try:
-        # Note: Python 2.x users should use raw_input, the equivalent of 3.x's input
+        # Note: Python 2.x users should use raw_input, the 5equivalent of 3.x's input
         temp_input = input("몇 초마다 갱신할까요? (최소 5초 이상, 미입력시 기본 30초) ")
-        if temp_input is '':
+        if temp_input == '':
             break
         sleepTime = int(temp_input)
     except ValueError:
@@ -31,15 +31,21 @@ while True:
 
 while(True):
     soup = LoadWeb(URL)
-    eyegene = soup.find("td", class_="al_l").text
-    if("아이진" in eyegene):
-        print("New application found")
-        duration = 500  # milliseconds
-        freq = 880  # Hz
-        #play_tada()
-        winsound.Beep(freq, duration)
-        ctypes.windll.user32.MessageBoxW(0, "아이진!!!!!!!!!", "아이진!", 1)
-        break
-    else:
-        print("아이진 승인됐니? 아니요 "+eyegene)
+
+    temp=soup.find_all('tr')
+    for line in temp:
+        eyegene = line.find("td", class_="al_l")
+        if eyegene is None:
+            continue
+        elif("아이진" in eyegene):
+            print("New application found")
+            duration = 500  # milliseconds
+            freq = 880  # Hz
+            #play_tada()
+            winsound.Beep(freq, duration)
+            ctypes.windll.user32.MessageBoxW(0, "아이진!!!!!!!!!", "아이진!", 1)
+            break
+        else:
+            print("아이진 승인됐니? 아니요 "+eyegene.find("span").text)        
+    print("***")
     time.sleep(sleepTime)
