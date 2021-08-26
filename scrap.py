@@ -3,10 +3,11 @@ from bs4 import BeautifulSoup
 import time, winsound
 import ctypes  # An included library with Python install.  
 #from playsound import playsound
+from datetime import datetime
 
 def LoadWeb(URL):
     page = requests.get(URL)
-    soup = BeautifulSoup(page.content, "html.parser")
+    soup = BeautifulSoup(page.content, "html.parser")    
     #print("Webpage succesfully loaded")
     return soup
 
@@ -31,7 +32,7 @@ while True:
 
 while(True):
     soup = LoadWeb(URL)
-
+    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     temp=soup.find_all('tr')
     for line in temp:
         eyegene = line.find("td", class_="al_l")
